@@ -32,16 +32,6 @@ public class TestSuite
     }
 
     [UnityTest]
-    public IEnumerator GameOverOccursOnAsteroidCollision()
-    {
-        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
-        asteroid.transform.position = game.GetShip().transform.position;
-        yield return new WaitForSeconds(0.1f);
-
-        Assert.True(game.isGameOver);
-    }
-
-    [UnityTest]
     public IEnumerator NewGameRestartsGame()
     {
 
@@ -117,5 +107,14 @@ public class TestSuite
         game.NewGame();
         Assert.AreEqual(game.GetShip().lives, 3);
         yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerLosesLifeOnHit()
+    {
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        asteroid.transform.position = game.GetShip().transform.position;
+        yield return new WaitForSeconds(0.1f);
+        Assert.AreEqual(game.GetShip().lives, 2);
     }
 }

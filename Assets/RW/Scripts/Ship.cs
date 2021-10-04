@@ -127,4 +127,10 @@ public class Ship : MonoBehaviour
         isDead = false;
         lives = 3;
     }
+
+    public void LoseLife()
+    {
+        lives--;
+        if (lives <= 0) Game.GameOver();
+    }
 }
