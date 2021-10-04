@@ -117,4 +117,14 @@ public class TestSuite
         yield return new WaitForSeconds(0.1f);
         Assert.AreEqual(game.GetShip().lives, 2);
     }
+
+    [UnityTest]
+    public IEnumerator GameEndsAtZeroLives()
+    {
+        game.GetShip().LoseLife();
+        game.GetShip().LoseLife();
+        game.GetShip().LoseLife();
+        Assert.True(game.isGameOver);
+        yield return null;
+    }
 }
