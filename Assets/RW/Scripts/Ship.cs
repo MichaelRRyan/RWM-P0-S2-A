@@ -130,7 +130,11 @@ public class Ship : MonoBehaviour
 
     public void LoseLife()
     {
-        lives--;
-        if (lives <= 0) Game.GameOver();
+        if (!isDead)
+        {
+            lives--;
+            Game.UpdateLivesText();
+            if (lives <= 0) Game.GameOver();
+        }
     }
 }

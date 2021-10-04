@@ -127,4 +127,12 @@ public class TestSuite
         Assert.True(game.isGameOver);
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator LivesTextUpdates()
+    {
+        game.GetShip().LoseLife();
+        Assert.AreEqual(game.livesText.text, "Lives: 2");
+        yield return null;
+    }
 }
