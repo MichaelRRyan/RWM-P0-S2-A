@@ -37,6 +37,7 @@ public class Game : MonoBehaviour
 {
     public int score = 0;
     public bool isGameOver = false;
+    public Text livesText;
 
     [SerializeField]
     private GameObject shipModel;
@@ -102,5 +103,10 @@ public class Game : MonoBehaviour
     public Spawner GetSpawner()
     {
         return spawner.GetComponent<Spawner>();
+    }
+
+    public static void UpdateLivesText()
+    {
+        instance.livesText.text = "Lives: " + instance.GetShip().lives;
     }
 }

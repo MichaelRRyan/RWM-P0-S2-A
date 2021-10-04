@@ -32,16 +32,6 @@ public class TestSuite
     }
 
     [UnityTest]
-    public IEnumerator GameOverOccursOnAsteroidCollision()
-    {
-        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
-        asteroid.transform.position = game.GetShip().transform.position;
-        yield return new WaitForSeconds(0.1f);
-
-        Assert.True(game.isGameOver);
-    }
-
-    [UnityTest]
     public IEnumerator NewGameRestartsGame()
     {
 
@@ -112,12 +102,39 @@ public class TestSuite
     }
 
     [UnityTest]
+    public IEnumerator NewGameSetsShipLivesToThree()
+    {
+        game.NewGame();
+        Assert.AreEqual(game.GetShip().lives, 3);
+        yield return null;
+    }
+
+    [UnityTest]
     public IEnumerator ShipMovementUp()
     {
         game.NewGame();
         float yPos = game.GetShip().transform.position.y;
         game.GetShip().MoveUp();
         Assert.Greater(game.GetShip().transform.position.y, yPos);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator PlayerLosesLifeOnHit()
+    {
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        asteroid.transform.position = game.GetShip().transform.position;
+        yield return new WaitForSeconds(0.1f);
+        Assert.AreEqual(game.GetShip().lives, 2);
+    }
+
+    [UnityTest]
+    public IEnumerator GameEndsAtZeroLives()
+    {
+        game.GetShip().LoseLife();
+        game.GetShip().LoseLife();
+        game.GetShip().LoseLife();
+        Assert.True(game.isGameOver);
         yield return null;
     }
 
@@ -138,6 +155,14 @@ public class TestSuite
         GameObject asteroid = game.GetSpawner().SpawnAsteroid();
         float speed = asteroid.GetComponent<Asteroid>().getSpeed();
         Assert.AreEqual(speed, 1.0f);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator LivesTextUpdates()
+    {
+        game.GetShip().LoseLife();
+        Assert.AreEqual(game.livesText.text, "Lives: 2");
         yield return null;
     }
 

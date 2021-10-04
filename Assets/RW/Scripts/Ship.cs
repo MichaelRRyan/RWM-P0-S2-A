@@ -37,6 +37,7 @@ public class Ship : MonoBehaviour
     public bool isDead = false;
     public float speed = 1;
     public bool canShoot = true;
+    public int lives = 3;
 
     [SerializeField]
     private  MeshRenderer mesh;
@@ -154,5 +155,16 @@ public class Ship : MonoBehaviour
         explosion.SetActive(false);
         mesh.enabled = true;
         isDead = false;
+        lives = 3;
+    }
+
+    public void LoseLife()
+    {
+        if (!isDead)
+        {
+            lives--;
+            Game.UpdateLivesText();
+            if (lives <= 0) Game.GameOver();
+        }
     }
 }
