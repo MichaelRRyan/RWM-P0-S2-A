@@ -110,4 +110,12 @@ public class TestSuite
         Assert.Greater(game.GetShip().transform.position.x, xPos);
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator NewGameSetsShipLivesToThree()
+    {
+        game.NewGame();
+        Assert.AreEqual(game.GetShip().lives, 3);
+        yield return null;
+    }
 }
