@@ -120,4 +120,14 @@ public class TestSuite
         Assert.Greater(game.GetShip().transform.position.y, yPos);
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator ShipMovementDown()
+    {
+        game.NewGame();
+        float yPos = game.GetShip().transform.position.y;
+        game.GetShip().MoveDown();
+        Assert.Less(game.GetShip().transform.position.y, yPos);
+        yield return null;
+    }
 }

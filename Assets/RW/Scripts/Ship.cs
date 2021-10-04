@@ -78,6 +78,11 @@ public class Ship : MonoBehaviour
         {
             MoveUp();
         }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            MoveDown();
+        }
     }
 
     public void ShootLaser()
@@ -125,6 +130,15 @@ public class Ship : MonoBehaviour
         if (transform.position.y > maxUp)
         {
             transform.position = new Vector3(transform.position.x, maxDown, 0);
+        }
+    }
+
+    public void MoveDown()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (transform.position.y < maxDown)
+        {
+            transform.position = new Vector3(transform.position.x, maxUp, 0);
         }
     }
 
