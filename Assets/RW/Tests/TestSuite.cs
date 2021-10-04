@@ -110,4 +110,27 @@ public class TestSuite
         Assert.Greater(game.GetShip().transform.position.x, xPos);
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator intialSpeedOfAsteroid()
+    {
+        game.NewGame();
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        float speed = asteroid.GetComponent<Asteroid>().getSpeed();
+        Assert.AreEqual(speed, 1.0f);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator speedIncreaseOverTime()
+    {
+        game.NewGame();
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        float Intialspeed = asteroid.GetComponent<Asteroid>().getSpeed();
+        Assert.AreEqual(Intialspeed, 1.0f);
+        yield return new WaitForSeconds(0.1f);
+        float speedAfterTime = asteroid.GetComponent<Asteroid>().getSpeed();
+        Assert.Greater(speedAfterTime, Intialspeed);
+        yield return null;
+    }
 }

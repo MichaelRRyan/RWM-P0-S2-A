@@ -34,7 +34,8 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    public float speed = 1;
+    private float speed = 1.0f;
+    private const float MAX_SPEED = 3.0f; 
     private float maxY = -5;
 
     private void Update()
@@ -49,6 +50,14 @@ public class Asteroid : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if(speed < MAX_SPEED)
+        {
+            speed = speed + (2.0f * Time.deltaTime);
+        }
+        // lock z axis for asteriods so they are on the same plane as the ship.
+        Vector3 temp = this.transform.position;
+        temp.z = 0.0f;
+        this.transform.position = temp;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -58,5 +67,10 @@ public class Asteroid : MonoBehaviour
             Game.GameOver();
             Destroy(gameObject);
         }
+    }
+
+    public float getSpeed()
+    {
+        return speed;
     }
 }
